@@ -28,11 +28,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 const index = require('./routes/index');
 app.use('/', index);
 
+// socket.io
 io.on('connection', socket => {
-  socket.emit('news', { hello: 'world' });
-  socket.on('my other event', data => {
-    console.log(data);
-  });
+  socket.emit('greeting', 'hello world');
 });
 
 server.listen(process.env.PORT || 3000, () => {

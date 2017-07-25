@@ -17,8 +17,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script>
-      console.log(data);
-      socket.emit('my other event', { my: 'data' });
+      var socket = io();
+      socket.on('greeting', function(msg) {
+        console.log(msg);
+      });
     </script>
 
   </body>
