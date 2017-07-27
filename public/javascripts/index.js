@@ -6,44 +6,76 @@ $(document).ready(function() {
     console.log(msg);
   });
 
-  var stockNames = ['MSFT', 'AMZN', 'GOOG', 'FB'];
-  var stocks = [];
+  var seriesOptions = [],
+    seriesCounter = 0,
+    names = ['MSFT', 'AAPL', 'GOOG', 'AMZN', 'FB'];
 
-  stockNames.forEach(function(stock) {
-    stocks[stock] = [];
-  });
+  /**
+   * Create the chart when all data is loaded
+   * @returns {undefined}
+   */
+  function createChart() {
 
-  stockNames.forEach(function(stock) {
-    $.ajax({
-      type: 'GET',
-      url: 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=' + stock + '&apikey=ANNU3ILLFHQQYRD1',
-      success: function(data) {
-        $.each(data['Time Series (Daily)'], function(key, value) {
-          stocks[stock].push({ Date: key, Price: value['4. close']});
-        });
+    Highcharts.stockChart('container', {
+
+      rangeSelector: {
+        selected: 4
+      },
+
+      yAxis: {
+        labels: {
+          formatter: function () {
+            return (this.value > 0 ? ' + ' : '') + this.value + '%';
+          }
+        },
+        plotLines: [{
+          value: 0,
+          width: 2,
+          color: 'silver'
+        }]
+      },
+
+      plotOptions: {
+        series: {
+          compare: 'percent',
+          showInNavigator: true
+        }
+      },
+
+      tooltip: {
+        pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change}%)<br/>',
+        valueDecimals: 2,
+        split: true
+      },
+
+      series: seriesOptions
+    });
+  }
+
+  $.each(names, function (i, name) {
+
+    $.getJSON('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=' + name + '&apikey=ANNU3ILLFHQQYRD1', function (data) {
+      var dataset = [];
+
+      for (var key in data['Time Series (Daily)']) {
+        if (data['Time Series (Daily)'].hasOwnProperty(key)) {
+          dataset.push([new Date(key + 'Z').toUTCString(), +data['Time Series (Daily)'][key]['1. open']]);
+        }
+      }
+      dataset.reverse();
+      console.log(dataset);
+      seriesOptions[i] = {
+        name: name,
+        data: dataset
+      };
+
+      // As we're loading the data asynchronously, we don't know what order it will arrive. So
+      // we keep a counter and create the chart when all the data is loaded.
+      seriesCounter += 1;
+
+      if (seriesCounter === names.length) {
+        createChart();
       }
     });
   });
-  console.log(stocks);
-
-  /*var ctx = $('#myChart');
-  var myLineChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-      datasets: [{
-        label: 'Charting the Stock Market',
-        data: stockPrices,
-        backgroundColor: colors
-      }]
-    },
-    options: {
-      scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: true
-          }
-        }]
-      }
-    }
-  });*/
 });
