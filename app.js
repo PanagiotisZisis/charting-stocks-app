@@ -5,6 +5,7 @@ const path = require('path');
 const favicon = require('serve-favicon');
 const logger = require('morgan');
 const sassMiddleware = require('node-sass-middleware');
+const compression = require('compression');
 
 const app = express();
 const server = require('http').Server(app);
@@ -23,6 +24,7 @@ app.use(sassMiddleware({
   outputStyle: 'compressed'
 }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(compression());
 
 // routing
 const index = require('./routes/index');

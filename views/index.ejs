@@ -2,29 +2,29 @@
 <html lang="en">
   <head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css"  media="screen,projection"/>
     <link rel="stylesheet" href="/stylesheets/style.css">
 
   </head>
 
   <body>
     
-    <div class="container mt-5" id="container">
-      <div class="row">
-        <div class="offset-md-1 col-md-10">
-          <canvas id="myChart" height="400"></canvas>
-        </div>
+    <div class="container">
+      <div class="section">
+        <div id="myChart" style="height: 400px;"></div>
       </div>
-      <div class="row">
-        <div class="offset-md-1 col-md-10" id="controlPanel"></div>
+      <div class="divider"></div>
+      <div class="section">
+        <div id="controlPanel">
+          <h4 class="center-align">Manage Stocks</h4>
+        </div>
       </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highstock/5.0.12/highstock.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/javascripts/index.js"></script>

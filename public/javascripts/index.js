@@ -10,13 +10,9 @@ $(document).ready(function() {
     seriesCounter = 0,
     names = ['MSFT', 'AAPL'];
 
-  /**
-   * Create the chart when all data is loaded
-   * @returns {undefined}
-   */
   function createChart() {
 
-    Highcharts.stockChart('container', {
+    Highcharts.stockChart('myChart', {
 
       rangeSelector: {
         selected: 1
@@ -71,7 +67,8 @@ $(document).ready(function() {
         text: 'Stocks',
         align: 'center',
         style: {
-          fontSize: '30px'
+          fontSize: '35px',
+          fontFamily: 'Roboto'
         }
       },
 
@@ -89,15 +86,13 @@ $(document).ready(function() {
           dataset.push([Date.parse(key), +data['Time Series (Daily)'][key]['1. open']]);
         }
       }
+
       dataset.reverse();
-      console.log(dataset);
       seriesOptions[i] = {
         name: name,
         data: dataset
       };
 
-      // As we're loading the data asynchronously, we don't know what order it will arrive. So
-      // we keep a counter and create the chart when all the data is loaded.
       seriesCounter += 1;
 
       if (seriesCounter === names.length) {
