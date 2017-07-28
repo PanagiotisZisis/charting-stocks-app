@@ -8,7 +8,7 @@ $(document).ready(function() {
 
   var seriesOptions = [],
     seriesCounter = 0,
-    names = ['MSFT', 'AAPL', 'GOOG', 'AMZN', 'FB'];
+    names = ['MSFT', 'AAPL'];
 
   /**
    * Create the chart when all data is loaded
@@ -19,7 +19,7 @@ $(document).ready(function() {
     Highcharts.stockChart('container', {
 
       rangeSelector: {
-        selected: 4
+        selected: 1
       },
 
       yAxis: {
@@ -35,6 +35,13 @@ $(document).ready(function() {
         }]
       },
 
+      xAxis: {
+        type: 'datetime',
+        dateTimeLabelFormat: {
+          month: '%Y-%m',
+        }
+      },
+
       plotOptions: {
         series: {
           compare: 'percent',
@@ -48,6 +55,26 @@ $(document).ready(function() {
         split: true
       },
 
+      legend: {
+        enabled: true,
+        align: 'right',
+        backgroundColor: '#FCFFC5',
+        borderColor: 'black',
+        borderWidth: 2,
+        layout: 'vertical',
+        verticalAlign: 'top',
+        y: 100,
+        shadow: true
+      },
+
+      title: {
+        text: 'Stocks',
+        align: 'center',
+        style: {
+          fontSize: '30px'
+        }
+      },
+
       series: seriesOptions
     });
   }
@@ -59,7 +86,7 @@ $(document).ready(function() {
 
       for (var key in data['Time Series (Daily)']) {
         if (data['Time Series (Daily)'].hasOwnProperty(key)) {
-          dataset.push([new Date(key + 'Z').toUTCString(), +data['Time Series (Daily)'][key]['1. open']]);
+          dataset.push([Date.parse(key), +data['Time Series (Daily)'][key]['1. open']]);
         }
       }
       dataset.reverse();
