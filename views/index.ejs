@@ -9,22 +9,26 @@
 
   </head>
 
-  <body>
+  <body data-stocks="<%= stocks %>">
     
     <div class="container">
       <div class="section">
         <div id="myChart" style="height: 400px;"></div>
       </div>
+      <br />
       <div class="divider"></div>
+      <br />
       <div class="section">
         <div id="controlPanel">
-          <h4 class="center-align">Manage Stocks</h4>
+          <h4 class="center-align">Add/Remove Stocks</h4>
+          <br />
+          <div class="chips chips-initial"></div>
         </div>
       </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highstock/5.0.12/highstock.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/javascripts/index.js"></script>

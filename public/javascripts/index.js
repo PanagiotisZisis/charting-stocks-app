@@ -2,13 +2,22 @@
 
 $(document).ready(function() {
   var socket = io();
+  var seriesOptions = [];
+  var seriesCounter = 0;
+  var names = ['MSFT', 'AAPL'];
+  var initialTags = [];
+
   socket.on('greeting', function(msg) {
     console.log(msg);
   });
 
-  var seriesOptions = [],
-    seriesCounter = 0,
-    names = ['MSFT', 'AAPL'];
+  names.forEach(function(name) {
+    initialTags.push({ tag: name });
+  });
+
+  $('.chips-initial').material_chip({
+    data: initialTags
+  });
 
   function createChart() {
 

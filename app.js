@@ -6,10 +6,14 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const sassMiddleware = require('node-sass-middleware');
 const compression = require('compression');
+const mongoose = require('mongoose');
+require('dotenv').config();
 
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
+
+mongoose.connect(process.env.MONGO_URI);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
