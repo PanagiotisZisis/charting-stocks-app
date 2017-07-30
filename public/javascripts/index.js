@@ -4,7 +4,7 @@ $(document).ready(function() {
   var socket = io();
   var seriesOptions = [];
   var seriesCounter = 0;
-  var names = ['MSFT', 'AAPL'];
+  var names = $('body').data('stocks');
   var initialTags = [];
 
   socket.on('greeting', function(msg) {
@@ -108,5 +108,22 @@ $(document).ready(function() {
         createChart();
       }
     });
+  });
+
+  $('.input').keydown(function(e) {
+    if (e.keyCode === 13) {
+      var data = {
+        stock: $('.input').val()
+      };
+      socket.emit('stock', data);
+      /*$.ajax({
+        type: 'POST',
+        url: 'http://localhost:3000/',
+        data: data,
+        success: function() {
+          location.reload(true);
+        }
+      });*/
+    }
   });
 });

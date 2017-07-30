@@ -6,6 +6,7 @@
   "author": "Panagiotis Zisis",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.17.2",
     "compression": "^1.7.0",
     "dotenv": "^4.0.0",
     "ejs": "^2.5.6",
