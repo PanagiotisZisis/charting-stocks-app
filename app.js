@@ -9,7 +9,6 @@ const compression = require('compression');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const Stocks = require('./models/stocks');
-require('dotenv').config();
 
 const app = express();
 const server = require('http').Server(app);
