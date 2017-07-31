@@ -5,6 +5,9 @@
   "main": "app.js",
   "author": "Panagiotis Zisis",
   "license": "MIT",
+  "scripts": {
+    "start": "node app.js"
+  },
   "dependencies": {
     "body-parser": "^1.17.2",
     "compression": "^1.7.0",
