@@ -37,34 +37,18 @@ app.use(compression());
 app.get('/', (req, res) => {
   // socket.io
   io.on('connection', socket => {
-    socket.emit('greeting', 'hello world');
+    socket.on('newStocks', data => {
+      const updatedDoc = { stocks: data };
+      Stocks.update({}, updatedDoc, err => {
+        if (err) throw err;
+        io.emit('newChart', updatedDoc.stocks);
+      });
+    });
   });
 
   Stocks.find({}, (err, docs) => {
     if (err) throw err;
     res.render('index', { stocks: JSON.stringify(docs[0].stocks) });
-  });
-});
-
-app.post('/', (req, res) => {
-  const newStock = req.body.stock;
-
-  Stocks.find({}, (err, docs) => {
-    if (err) throw err;
-    // checking if duplicate
-    if (docs[0].stocks.indexOf(newStock) !== -1) {
-      return res.redirect('/');
-    }
-    // updating
-    let currentStocks = docs[0].stocks;
-    currentStocks.push(newStock);
-    const updatedDoc = {
-      stocks: currentStocks
-    };
-    Stocks.update({}, updatedDoc, err => {
-      if (err) throw err;
-      res.json({ success: 'successfully updated stocks' });
-    });
   });
 });
 
